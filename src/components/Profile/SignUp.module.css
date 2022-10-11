@@ -78,3 +78,12 @@
 .toggle:hover {
   background-color: rgb(100, 33, 162);
 }
+.forgotPassword {
+  background-color: transparent;
+  border: none;
+  color: rgb(141, 134, 134);
+}
+
+.forgotPassword:hover {
+  color: white;
+}

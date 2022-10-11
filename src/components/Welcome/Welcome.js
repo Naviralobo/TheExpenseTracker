@@ -1,14 +1,17 @@
 import classes from "./Welcome.module.css";
 import InputForm from "./InputForm";
 import AuthContext from "../../Store/AuthContext";
+import { useHistory } from "react-router-dom";
 
 import { useState, useContext } from "react";
+
 let collectedData = {
   email: "",
   displayName: "",
   image: "",
 };
 const Welcome = () => {
+  const history = useHistory();
   const [isUpdate, setIsUpdate] = useState(false);
   const authCntxt = useContext(AuthContext);
   const idToken = localStorage.getItem("tokenET");
@@ -91,6 +94,7 @@ const Welcome = () => {
   }
   const logoutHandler = () => {
     authCntxt.logout();
+    history.replace("/");
   };
   return (
     <>

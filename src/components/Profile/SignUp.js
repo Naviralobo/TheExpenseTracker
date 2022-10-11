@@ -77,6 +77,9 @@ const SignUp = (props) => {
         alert(err.message);
       });
   };
+  const forgotPasswordHandler = () => {
+    history.replace("/forgotPassword");
+  };
 
   return (
     <div className={classes.div}>
@@ -107,11 +110,19 @@ const SignUp = (props) => {
               />
             </div>
           )}
+          <button
+            type="button"
+            className={classes.forgotPassword}
+            onClick={forgotPasswordHandler}
+          >
+            forgot password?
+          </button>
           <div className={classes.actions}>
-            <button>{isLogin ? "Login" : "Signup"}</button>
+            <button type="submit">{isLogin ? "Login" : "Signup"}</button>
           </div>
         </form>
       </section>
+
       <button
         type="button"
         className={classes.toggle}
