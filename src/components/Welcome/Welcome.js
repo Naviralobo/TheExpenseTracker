@@ -89,6 +89,9 @@ const Welcome = () => {
         alert(err.message);
       });
   }
+  const logoutHandler = () => {
+    authCntxt.logout();
+  };
   return (
     <>
       <div className={classes.welcomeDiv}>
@@ -103,6 +106,11 @@ const Welcome = () => {
             Complete now
           </button>
         </p>
+        <div>
+          <button className={classes.logout} onClick={logoutHandler}>
+            Logout
+          </button>
+        </div>
       </div>
       <InputForm data={collectedData} />
     </>

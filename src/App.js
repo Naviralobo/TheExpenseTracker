@@ -14,9 +14,11 @@ function App() {
     <>
       {!authCntxt.isLoggedIn && <SignUp />}
       {/* {authCntxt.isLoggedIn && <Welcome />} */}
-      <Route path="/welcome">
-        <Welcome />
-      </Route>
+      {authCntxt.isLoggedIn && (
+        <Route path="/welcome">
+          <Welcome />
+        </Route>
+      )}
       <Route path="/verify">
         <VerifyEmail />
       </Route>

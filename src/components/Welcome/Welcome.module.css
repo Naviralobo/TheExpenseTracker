@@ -23,3 +23,14 @@
 .updateButton:hover {
   color: blueviolet;
 }
+.logout {
+  background-color: blueviolet;
+  color: white;
+  font-weight: bold;
+  border-radius: 10px;
+  margin-top: 8px;
+  padding: 5px;
+}
+.logout:hover {
+  background-color: rgb(36, 31, 41);
+}
