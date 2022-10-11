@@ -1,8 +1,10 @@
 import { useRef, useState, useContext } from "react";
 import classes from "./SignUp.module.css";
 import AuthContext from "../../Store/AuthContext";
+import { useHistory } from "react-router-dom";
 
 const SignUp = (props) => {
+  const history = useHistory();
   const authCntxt = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(false);
 
@@ -69,6 +71,7 @@ const SignUp = (props) => {
         }
 
         authCntxt.login(data.idToken);
+        history.push("/verify");
       })
       .catch((err) => {
         alert(err.message);

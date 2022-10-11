@@ -5,7 +5,7 @@ import AuthContext from "../../Store/AuthContext";
 import { useState, useContext } from "react";
 let collectedData = {
   email: "",
-  name: "",
+  displayName: "",
   image: "",
 };
 const Welcome = () => {
@@ -82,7 +82,7 @@ const Welcome = () => {
         console.log(data.users[0]);
         setIsUpdate(true);
         collectedData.email = data.users[0].email;
-        collectedData.name = data.users[0].displayName;
+        collectedData.displayName = data.users[0].displayName;
         collectedData.image = data.users[0].photoUrl;
       })
       .catch((err) => {

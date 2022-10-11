@@ -1,9 +1,9 @@
 import { useContext } from "react";
 import SignUp from "./components/Profile/SignUp";
-
+import { Route } from "react-router-dom";
 import Welcome from "./components/Welcome/Welcome";
 import AuthContext from "./Store/AuthContext";
-
+import VerifyEmail from "./components/Profile/verifyEmail";
 function App() {
   const authCntxt = useContext(AuthContext);
   // const [isLogin, setIsLogin] = useState(false);
@@ -13,7 +13,13 @@ function App() {
   return (
     <>
       {!authCntxt.isLoggedIn && <SignUp />}
-      {authCntxt.isLoggedIn && <Welcome />}
+      {/* {authCntxt.isLoggedIn && <Welcome />} */}
+      <Route path="/welcome">
+        <Welcome />
+      </Route>
+      <Route path="/verify">
+        <VerifyEmail />
+      </Route>
     </>
   );
 }

@@ -9,8 +9,8 @@ const InputForm = (props) => {
     <form className={classes.div}>
       {/* <img src={props.data.image} alt="userImage" /> */}
       <label htmlFor="userName">Name</label>
-      <input type="text" id="userName" defaultValue={props.data.name} />
-      {console.log(props.data.name)}
+      <input type="text" id="userName" defaultValue={props.data.displayName} />
+
       <label htmlFor="emailInput">Email</label>
       <input type="text" id="emailInput" defaultValue={props.data.email} />
       <div className={classes.actions}>
