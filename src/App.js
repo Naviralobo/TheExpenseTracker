@@ -1,17 +1,19 @@
-import { useState } from "react";
+import { useContext } from "react";
 import SignUp from "./components/Profile/SignUp";
 
-import Welcome from "./Welcome";
+import Welcome from "./components/Welcome/Welcome";
+import AuthContext from "./Store/AuthContext";
 
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
-  const loginHandler = () => {
-    setIsLogin(true);
-  };
+  const authCntxt = useContext(AuthContext);
+  // const [isLogin, setIsLogin] = useState(false);
+  // const loginHandler = () => {
+  //   setIsLogin(true);
+  // };
   return (
     <>
-      {!isLogin && <SignUp onLogin={loginHandler} />}
-      {isLogin && <Welcome />}
+      {!authCntxt.isLoggedIn && <SignUp />}
+      {authCntxt.isLoggedIn && <Welcome />}
     </>
   );
 }

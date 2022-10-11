@@ -1,7 +1,9 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import classes from "./SignUp.module.css";
+import AuthContext from "../../Store/AuthContext";
 
 const SignUp = (props) => {
+  const authCntxt = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(false);
 
   const emailInputRef = useRef();
@@ -65,9 +67,8 @@ const SignUp = (props) => {
         } else {
           alert("Successfully Logged in");
         }
-        console.log(data);
-        localStorage.setItem("tokenET", data.idToken);
-        props.onLogin();
+
+        authCntxt.login(data.idToken);
       })
       .catch((err) => {
         alert(err.message);
