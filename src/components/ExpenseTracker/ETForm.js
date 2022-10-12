@@ -2,6 +2,7 @@ import classes from "./ETForm.module.css";
 import { useRef, useContext } from "react";
 import ExpenseContext from "../../Store/ExpenseContext";
 import ExpenseList from "./ExpenseList";
+import axios from "axios";
 const ETForm = (props) => {
   const expCntxt = useContext(ExpenseContext);
   const amountInputRef = useRef();
@@ -18,7 +19,28 @@ const ETForm = (props) => {
       description: description,
       category: category,
     };
-    expCntxt.addExpense(expense);
+
+    axios
+      .post(
+        "https://expensetracker-50239-default-rtdb.firebaseio.com/expenses.json",
+        expense
+      )
+      .then((res) => {
+        console.log(res);
+        axios
+          .get(
+            "https://expensetracker-50239-default-rtdb.firebaseio.com/expenses.json"
+          )
+          .then((res) => {
+            let datas = res.data;
+            for (let id in datas) {
+              let expenses = datas[id];
+              expenses.id = id;
+              console.log(expenses);
+              expCntxt.addExpense(expenses);
+            }
+          });
+      });
   };
   const expensee = expCntxt.expenses.map((expElement) => (
     <ExpenseList
