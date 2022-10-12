@@ -1,5 +1,6 @@
 import classes from "./Welcome.module.css";
 import InputForm from "./InputForm";
+import ETForm from "../ExpenseTracker/ETForm";
 import AuthContext from "../../Store/AuthContext";
 import { useHistory } from "react-router-dom";
 
@@ -13,10 +14,15 @@ let collectedData = {
 const Welcome = () => {
   const history = useHistory();
   const [isUpdate, setIsUpdate] = useState(false);
+  const [isNavigated, setIsNavigated] = useState(false);
   const authCntxt = useContext(AuthContext);
   const idToken = localStorage.getItem("tokenET");
+  const navigationHandler = () => {
+    setIsNavigated(true);
+  };
 
   const profileUpdateHandler = () => {
+    setIsNavigated(false);
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDBDNLlgXE3aUD1Tkn4aG-tSIbGYJlUEjc",
       {
@@ -94,7 +100,7 @@ const Welcome = () => {
   }
   const logoutHandler = () => {
     authCntxt.logout();
-    history.replace("/");
+    history.push("/");
   };
   return (
     <>
@@ -116,7 +122,10 @@ const Welcome = () => {
           </button>
         </div>
       </div>
-      <InputForm data={collectedData} />
+      {!isNavigated && (
+        <InputForm data={collectedData} navigation={navigationHandler} />
+      )}
+      {isNavigated && <ETForm />}
     </>
   );
 };

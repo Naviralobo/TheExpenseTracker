@@ -1,0 +1,72 @@
+.div {
+  background-color: rgb(235, 207, 91);
+  border: 2px solid rgb(152, 38, 26);
+  margin: 1% 5%;
+  border-radius: 15px;
+}
+
+.h1 {
+  text-align: center;
+  color: rgb(15, 102, 15);
+  font-style: italic;
+  font-family: cursive;
+}
+.form {
+  display: flex;
+  margin-left: 1%;
+  margin-right: 10%;
+  margin-top: 1%;
+  margin-bottom: 2%;
+}
+
+.description {
+  width: 25%;
+  background-color: green;
+  color: yellow;
+  font-style: italic;
+  text-align: center;
+  border: 1px solid yellowgreen;
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: 10%;
+}
+.category {
+  width: 25%;
+  background-color: green;
+  color: yellow;
+  font-style: italic;
+  text-align: center;
+  border: 1px solid yellowgreen;
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: 10%;
+}
+.money {
+  width: 25%;
+  background-color: green;
+  color: yellow;
+  font-style: italic;
+  text-align: center;
+  border: 1px solid yellowgreen;
+  border-radius: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: 10%;
+}
+.form input {
+  border-radius: 7px;
+}
+.actions {
+  display: block;
+  width: 150px;
+  height: 40px;
+  margin-left: 45%;
+  background-color: rgb(172, 211, 94);
+  color: green;
+  border: 1px solid green;
+  border-radius: 10px;
+  font-weight: bold;
+  margin-bottom: 3%;
+}

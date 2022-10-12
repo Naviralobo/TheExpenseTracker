@@ -52,3 +52,14 @@
   background-color: #873abb;
   border-color: #873abb;
 }
+.ETButton {
+  background-color: rgb(203, 7, 7);
+  color: rgb(204, 204, 120);
+  padding: 10px;
+  border-radius: 7px;
+  border: 1px solid palevioletred;
+  margin-left: 46%;
+}
+.ETButton:hover {
+  background-color: rgb(161, 7, 7);
+}
