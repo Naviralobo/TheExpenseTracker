@@ -20,22 +20,6 @@ const Welcome = () => {
   const navigationHandler = () => {
     setIsNavigated(true);
   };
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       "https://expensetracker-50239-default-rtdb.firebaseio.com/expenses.json"
-  //     )
-  //     .then((res) => {
-  //       let datas = res.data;
-  //       let expenses;
-  //       for (let id in datas) {
-  //         expenses = datas[id];
-  //         expenses.id = id;
-  //         console.log(expenses);
-  //         expCntxt.addExpense(expenses);
-  //       }
-  //     });
-  // }, []);
 
   const profileUpdateHandler = () => {
     setIsNavigated(false);

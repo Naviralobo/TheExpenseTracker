@@ -39,3 +39,13 @@
   text-align: center;
   height: 20px;
 }
+.edit {
+  background-color: blueviolet;
+  color: white;
+  border-radius: 5px;
+}
+.delete {
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+}

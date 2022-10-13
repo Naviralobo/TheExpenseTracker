@@ -1,5 +1,5 @@
 import classes from "./ETForm.module.css";
-import { useRef, useContext } from "react";
+import { useRef, useContext, useState } from "react";
 import ExpenseContext from "../../Store/ExpenseContext";
 import ExpenseList from "./ExpenseList";
 import axios from "axios";
@@ -8,7 +8,9 @@ const ETForm = (props) => {
   const amountInputRef = useRef();
   const descriptionInputRef = useRef();
   const categoryInputRef = useRef();
-  // const submitHandler = () => {};
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [id, setId] = useState("");
+
   const submitHandler = (event) => {
     event.preventDefault();
     const amount = amountInputRef.current.value;
@@ -19,34 +21,69 @@ const ETForm = (props) => {
       description: description,
       category: category,
     };
-
-    axios
-      .post(
+    if (!isEditMode)
+      axios.post(
         "https://expensetracker-50239-default-rtdb.firebaseio.com/expenses.json",
         expense
-      )
-      .then((res) => {
-        console.log(res);
-        axios
-          .get(
-            "https://expensetracker-50239-default-rtdb.firebaseio.com/expenses.json"
-          )
-          .then((res) => {
-            let datas = res.data;
-            for (let id in datas) {
-              let expenses = datas[id];
-              expenses.id = id;
-              console.log(expenses);
-              expCntxt.addExpense(expenses);
-            }
-          });
-      });
+      );
+    // .then((res) => {
+    //   console.log(res);
+    //   axios
+    //     .get(
+    //       "https://expensetracker-50239-default-rtdb.firebaseio.com/expenses.json"
+    //     )
+    //     .then((res) => {
+    //       let datas = res.data;
+    //       for (let id in datas) {
+    //         let expenses = datas[id];
+    //         expenses.id = id;
+    //         console.log(expenses);
+    //         expCntxt.addExpense(expenses);
+    //       }
+    //     });
+    // });
+    else if (isEditMode)
+      axios
+        .put(
+          `https://expensetracker-50239-default-rtdb.firebaseio.com/expenses/${id}.json`,
+          expense
+        )
+
+        .then((res) => {
+          console.log(res);
+          axios
+            .get(
+              "https://expensetracker-50239-default-rtdb.firebaseio.com/expenses.json"
+            )
+            .then((res) => {
+              let datas = res.data;
+              for (let id in datas) {
+                let expenses = datas[id];
+                expenses.id = id;
+                console.log(expenses);
+                expCntxt.addExpense(expenses);
+              }
+            });
+        });
+    setIsEditMode(false);
   };
+  const editHandler = (expElement) => {
+    amountInputRef.current.value = expElement.amount;
+    descriptionInputRef.current.value = expElement.description;
+    categoryInputRef.current.value = expElement.category;
+    setIsEditMode(true);
+    setId(expElement.id);
+  };
+
   const expensee = expCntxt.expenses.map((expElement) => (
     <ExpenseList
       amount={expElement.amount}
       description={expElement.description}
       category={expElement.category}
+      id={expElement.id}
+      onEdit={() => {
+        editHandler(expElement);
+      }}
     />
   ));
 
@@ -83,9 +120,10 @@ const ETForm = (props) => {
               </select>
             </div>
           </div>
+
           <div>
             <button className={classes.actions} type="submit">
-              Add Expense
+              {isEditMode ? "Update" : "Add Expense"}
             </button>
           </div>
         </form>
