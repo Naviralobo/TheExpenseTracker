@@ -1,15 +1,18 @@
 import classes from "./ETForm.module.css";
 import { useRef, useContext, useState } from "react";
-import ExpenseContext from "../../Store/ExpenseContext";
 import ExpenseList from "./ExpenseList";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { expActions } from "../../Store/ExpenseRedux";
 const ETForm = (props) => {
-  const expCntxt = useContext(ExpenseContext);
   const amountInputRef = useRef();
   const descriptionInputRef = useRef();
   const categoryInputRef = useRef();
   const [isEditMode, setIsEditMode] = useState(false);
   const [id, setId] = useState("");
+  const dispatch = useDispatch();
+  const expensesRedux = useSelector((state) => state.exp.expenses);
+  const userId = useSelector((state) => state.auth.userId);
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -22,47 +25,48 @@ const ETForm = (props) => {
       category: category,
     };
     if (!isEditMode)
-      axios.post(
-        "https://expensetracker-50239-default-rtdb.firebaseio.com/expenses.json",
-        expense
-      );
-    // .then((res) => {
-    //   console.log(res);
-    //   axios
-    //     .get(
-    //       "https://expensetracker-50239-default-rtdb.firebaseio.com/expenses.json"
-    //     )
-    //     .then((res) => {
-    //       let datas = res.data;
-    //       for (let id in datas) {
-    //         let expenses = datas[id];
-    //         expenses.id = id;
-    //         console.log(expenses);
-    //         expCntxt.addExpense(expenses);
-    //       }
-    //     });
-    // });
+      axios
+        .post(
+          `https://expensetracker-50239-default-rtdb.firebaseio.com/expenses/${userId}.json`,
+          expense
+        )
+        .then((res) => {
+          axios
+            .get(
+              `https://expensetracker-50239-default-rtdb.firebaseio.com/expenses/${userId}.json`
+            )
+            .then((res) => {
+              let datas = res.data;
+              let expArray = [];
+              for (let id in datas) {
+                let expenses = datas[id];
+                expenses.id = id;
+                expArray.push(expenses);
+              }
+              dispatch(expActions.addExpense(expArray));
+            });
+        });
     else if (isEditMode)
       axios
         .put(
-          `https://expensetracker-50239-default-rtdb.firebaseio.com/expenses/${id}.json`,
+          `https://expensetracker-50239-default-rtdb.firebaseio.com/expenses/${userId}/${id}.json`,
           expense
         )
 
         .then((res) => {
-          console.log(res);
           axios
             .get(
-              "https://expensetracker-50239-default-rtdb.firebaseio.com/expenses.json"
+              `https://expensetracker-50239-default-rtdb.firebaseio.com/expenses/${userId}.json`
             )
             .then((res) => {
               let datas = res.data;
+              let expArray = [];
               for (let id in datas) {
                 let expenses = datas[id];
                 expenses.id = id;
-                console.log(expenses);
-                expCntxt.addExpense(expenses);
+                expArray.push(expenses);
               }
+              dispatch(expActions.addExpense(expArray));
             });
         });
     setIsEditMode(false);
@@ -75,7 +79,7 @@ const ETForm = (props) => {
     setId(expElement.id);
   };
 
-  const expensee = expCntxt.expenses.map((expElement) => (
+  const expensee = expensesRedux.map((expElement) => (
     <ExpenseList
       amount={expElement.amount}
       description={expElement.description}

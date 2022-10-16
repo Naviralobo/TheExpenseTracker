@@ -1,10 +1,6 @@
 import classes from "./InputForm.module.css";
 
-// import { useRef } from "react";
 const InputForm = (props) => {
-  console.log(props.data);
-  //   const emailInputRef = useRef();
-  //   const nameInputRef = useRef();
   return (
     <div>
       <form className={classes.div}>

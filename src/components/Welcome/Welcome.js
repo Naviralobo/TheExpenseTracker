@@ -1,10 +1,11 @@
 import classes from "./Welcome.module.css";
 import InputForm from "./InputForm";
 import ETForm from "../ExpenseTracker/ETForm";
-import AuthContext from "../../Store/AuthContext";
+import { authActions } from "../../Store/AuthRedux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-import { useState, useContext } from "react";
+import { useState } from "react";
 
 let collectedData = {
   email: "",
@@ -12,17 +13,21 @@ let collectedData = {
   image: "",
 };
 const Welcome = () => {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isAuthenticated);
+  const isPremium = useSelector((state) => state.exp.isPremium);
   const history = useHistory();
   const [isUpdate, setIsUpdate] = useState(false);
   const [isNavigated, setIsNavigated] = useState(false);
-  const authCntxt = useContext(AuthContext);
-  const idToken = localStorage.getItem("tokenET");
+
+  const idToken = useSelector((state) => state.auth.token);
   const navigationHandler = () => {
     setIsNavigated(true);
   };
 
   const profileUpdateHandler = () => {
     setIsNavigated(false);
+    console.log("profile updated");
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyDBDNLlgXE3aUD1Tkn4aG-tSIbGYJlUEjc",
       {
@@ -39,29 +44,32 @@ const Welcome = () => {
         },
       }
     )
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        } else {
-          return res.json().then((data) => {
-            let errorMessage = "Authentication Failed";
-            if (data && data.error && data.message)
-              errorMessage = data.error.message;
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+    // .then((res) => {
+    //   if (res.ok) {
+    //     return res.json();
+    //   } else {
+    //     return res.json().then((data) => {
+    //       let errorMessage = "Authentication Failed";
+    //       if (data && data.error && data.message)
+    //         errorMessage = data.error.message;
 
-            throw new Error(errorMessage);
-          });
-        }
-      })
-      .then((data) => {
-        console.log(data);
-        setIsUpdate(true);
-      })
-      .catch((err) => {
-        alert(err.message);
-      });
+    //       throw new Error(errorMessage);
+    //     });
+    //   }
+    // })
+    // .then((data) => {
+    //   console.log(data);
+    //   setIsUpdate(true);
+    // })
+    // .catch((err) => {
+    //   alert(err.message);
+    // });
   };
 
-  if (authCntxt.isLoggedIn) {
+  // if (authCntxt.isLoggedIn) {
+  if (isLoggedIn) {
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDBDNLlgXE3aUD1Tkn4aG-tSIbGYJlUEjc",
       {
@@ -99,8 +107,8 @@ const Welcome = () => {
       });
   }
   const logoutHandler = () => {
-    authCntxt.logout();
-    history.push("/");
+    dispatch(authActions.logout());
+    history.replace("/");
   };
   return (
     <>
@@ -116,6 +124,9 @@ const Welcome = () => {
             Complete now
           </button>
         </p>
+        {isPremium && (
+          <button className={classes.premium}>Activate Premium</button>
+        )}
         <div>
           <button className={classes.logout} onClick={logoutHandler}>
             Logout

@@ -1,51 +1,57 @@
 .div {
   display: flex;
-  justify-content: space-between;
-  margin-left: 10%;
-  margin-right: 10%;
-}
 
+  margin-left: 25%;
+  margin-right: 25%;
+
+  border: 1px solid rgb(17, 75, 84);
+
+  /* border-radius: 7px; */
+  /* margin-bottom: 1px; */
+  text-align: center;
+}
+.list {
+  display: flex;
+}
 .amount {
-  background-color: aquamarine;
-  border: 1px solid blue;
-  border-radius: 10px;
-  margin-bottom: 1%;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-style: italic;
-  width: 10%;
+  width: 200px;
   height: 20px;
   text-align: center;
 }
 .desc {
-  background-color: aquamarine;
-  border: 1px solid blue;
-  border-radius: 10px;
-  margin-bottom: 1%;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-style: italic;
-  width: 10%;
+  width: 200px;
   text-align: center;
   height: 20px;
 }
 
 .cat {
-  background-color: aquamarine;
-  border: 1px solid blue;
-  border-radius: 10px;
-  margin-bottom: 1%;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   font-style: italic;
-  width: 10%;
+  width: 200px;
   text-align: center;
   height: 20px;
+}
+.actions {
+  display: inline-flex;
 }
 .edit {
   background-color: blueviolet;
   color: white;
   border-radius: 5px;
+  padding: nome;
+}
+.edit:hover {
+  background-color: rgb(117, 22, 205);
 }
 .delete {
   background-color: red;
   color: white;
   border-radius: 5px;
+}
+.delete:hover {
+  background-color: rgb(200, 28, 28);
 }

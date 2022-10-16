@@ -1,13 +1,13 @@
 import { useRef, useState, useContext } from "react";
 import classes from "./SignUp.module.css";
-import AuthContext from "../../Store/AuthContext";
 import { useHistory } from "react-router-dom";
+import { authActions } from "../../Store/AuthRedux";
+import { useSelector, useDispatch } from "react-redux";
 
 const SignUp = (props) => {
   const history = useHistory();
-  const authCntxt = useContext(AuthContext);
   const [isLogin, setIsLogin] = useState(false);
-
+  const dispatch = useDispatch();
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
   const confirmPasswordInputRef = useRef();
@@ -70,7 +70,8 @@ const SignUp = (props) => {
           alert("Successfully Logged in");
         }
 
-        authCntxt.login(data.idToken);
+        dispatch(authActions.login(data.idToken));
+        dispatch(authActions.setUserId(enteredEmail));
         history.push("/verify");
       })
       .catch((err) => {
@@ -78,7 +79,7 @@ const SignUp = (props) => {
       });
   };
   const forgotPasswordHandler = () => {
-    history.replace("/forgotPassword");
+    history.push("/forgotPassword");
   };
 
   return (
