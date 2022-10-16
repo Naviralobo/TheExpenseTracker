@@ -1,9 +1,7 @@
 .div {
   display: flex;
 
-  margin-left: 25%;
-  margin-right: 25%;
-
+  margin: auto;
   border: 1px solid rgb(17, 75, 84);
 
   /* border-radius: 7px; */
@@ -36,7 +34,10 @@
   height: 20px;
 }
 .actions {
-  display: inline-flex;
+  display: flex;
+}
+.row {
+  display: flex;
 }
 .edit {
   background-color: blueviolet;
@@ -54,4 +55,7 @@
 }
 .delete:hover {
   background-color: rgb(200, 28, 28);
+}
+td {
+  background-color: Lightgreen;
 }

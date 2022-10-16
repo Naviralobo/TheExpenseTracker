@@ -2,8 +2,11 @@ import classes from "./Welcome.module.css";
 import InputForm from "./InputForm";
 import ETForm from "../ExpenseTracker/ETForm";
 import { authActions } from "../../Store/AuthRedux";
+// import { themeActions } from "../../Store/ThemeRedux";
+
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import ToggleButton from "../../UI/ToggleButton";
 
 import { useState } from "react";
 
@@ -19,8 +22,9 @@ const Welcome = () => {
   const history = useHistory();
   const [isUpdate, setIsUpdate] = useState(false);
   const [isNavigated, setIsNavigated] = useState(false);
-
   const idToken = useSelector((state) => state.auth.token);
+  const isDark = useSelector((state) => state.theme.dark);
+
   const navigationHandler = () => {
     setIsNavigated(true);
   };
@@ -46,29 +50,8 @@ const Welcome = () => {
     )
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-    // .then((res) => {
-    //   if (res.ok) {
-    //     return res.json();
-    //   } else {
-    //     return res.json().then((data) => {
-    //       let errorMessage = "Authentication Failed";
-    //       if (data && data.error && data.message)
-    //         errorMessage = data.error.message;
-
-    //       throw new Error(errorMessage);
-    //     });
-    //   }
-    // })
-    // .then((data) => {
-    //   console.log(data);
-    //   setIsUpdate(true);
-    // })
-    // .catch((err) => {
-    //   alert(err.message);
-    // });
   };
 
-  // if (authCntxt.isLoggedIn) {
   if (isLoggedIn) {
     fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyDBDNLlgXE3aUD1Tkn4aG-tSIbGYJlUEjc",
@@ -112,10 +95,10 @@ const Welcome = () => {
   };
   return (
     <>
-      <div className={classes.welcomeDiv}>
+      <div className={`${classes.welcomeDiv} ${isDark && classes.dark}`}>
         <p> Welcome to ExpenseTracker Page!!</p>
 
-        <p className={classes.welcomeP2}>
+        <p className={`${classes.welcomeP2}  ${isDark && classes.dark}`}>
           Your profile is incomplete.
           <button
             className={classes.updateButton}
@@ -125,8 +108,18 @@ const Welcome = () => {
           </button>
         </p>
         {isPremium && (
-          <button className={classes.premium}>Activate Premium</button>
+          <div className={classes.premiumButtons}>
+            <button className={classes.premium}>Activate Premium</button>
+          </div>
         )}
+
+        <div className={classes.toggle}>
+          <div>Switch Mode</div>
+          <div>
+            <ToggleButton />
+          </div>
+        </div>
+
         <div>
           <button className={classes.logout} onClick={logoutHandler}>
             Logout

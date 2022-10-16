@@ -1,5 +1,3 @@
-// import { useContext } from "react";
-// import ExpenseContext from "../../Store/ExpenseContext";
 import { useSelector, useDispatch } from "react-redux";
 import { expActions } from "../../Store/ExpenseRedux";
 import classes from "./ExpenseList.module.css";
@@ -32,17 +30,19 @@ const ExpenseList = (props) => {
   return (
     <div className={classes.list}>
       <div className={classes.div}>
-        <div className={classes.amount}>Rs.{props.amount}</div>
-        <div className={classes.desc}>{props.description}</div>
-        <div className={classes.cat}>{props.category}</div>
-        <div className={classes.actions}>
-          <button className={classes.edit} onClick={props.onEdit}>
-            Edit
-          </button>
-          <button className={classes.delete} onClick={deleteExpenseHandler}>
-            Delete
-          </button>
-        </div>
+        <tr className={classes.row}>
+          <td className={classes.amount}>Rs.{props.amount}</td>
+          <td className={classes.desc}>{props.description}</td>
+          <td className={classes.cat}>{props.category}</td>
+          <td className={classes.actions}>
+            <button className={classes.edit} onClick={props.onEdit}>
+              Edit
+            </button>
+            <button className={classes.delete} onClick={deleteExpenseHandler}>
+              Delete
+            </button>
+          </td>
+        </tr>
       </div>
     </div>
   );

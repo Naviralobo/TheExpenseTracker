@@ -1,5 +1,5 @@
 import classes from "./ETForm.module.css";
-import { useRef, useContext, useState } from "react";
+import { useRef, useState } from "react";
 import ExpenseList from "./ExpenseList";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +13,8 @@ const ETForm = (props) => {
   const dispatch = useDispatch();
   const expensesRedux = useSelector((state) => state.exp.expenses);
   const userId = useSelector((state) => state.auth.userId);
-
+  const totalAmount = useSelector((state) => state.exp.totalAmount);
+  const isDark = useSelector((state) => state.theme.dark);
   const submitHandler = (event) => {
     event.preventDefault();
     const amount = amountInputRef.current.value;
@@ -78,7 +79,27 @@ const ETForm = (props) => {
     setIsEditMode(true);
     setId(expElement.id);
   };
+  const downloadHandler = () => {
+    let blob = new Blob([makeCSV(expensesRedux)]);
+    let file = URL.createObjectURL(blob);
+    let a = document.createElement("a");
+    a.download = "expenses.csv";
+    a.href = file;
+    a.click();
+  };
+  function makeCSV(expenses) {
+    let arr = [];
 
+    expenses.forEach((expense) => {
+      let expenseArr = [];
+      expenseArr.push(expense.amount);
+      expenseArr.push(expense.category);
+      expenseArr.push(expense.description);
+
+      arr.push(expenseArr);
+    });
+    return arr.map((r) => r).join("\n");
+  }
   const expensee = expensesRedux.map((expElement) => (
     <ExpenseList
       amount={expElement.amount}
@@ -94,7 +115,10 @@ const ETForm = (props) => {
   return (
     <>
       <div className={classes.div}>
-        <h1 className={classes.h1}>$ Your Expenses $</h1>
+        <h1 className={classes.h1}>
+          Total Expenses : <span> Rs.{totalAmount}</span>
+        </h1>
+
         <form onSubmit={submitHandler}>
           <div className={classes.form}>
             <div className={classes.money}>
@@ -133,6 +157,9 @@ const ETForm = (props) => {
         </form>
       </div>
       <ul>{expensee}</ul>
+      <button className={classes.download} onClick={downloadHandler}>
+        Download File
+      </button>
     </>
   );
 };

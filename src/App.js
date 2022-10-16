@@ -8,12 +8,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "./Store/AuthRedux";
 import { expActions } from "./Store/ExpenseRedux";
 import axios from "axios";
+import classes from "./App.module.css";
 
 function App() {
   const dispatch = useDispatch();
   dispatch(authActions.setIsAuth());
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
   const userId = useSelector((state) => state.auth.userId);
+  const isDark = useSelector((state) => state.theme.dark);
   axios
     .get(
       `https://expensetracker-50239-default-rtdb.firebaseio.com/expenses/${userId}.json`
@@ -29,7 +31,7 @@ function App() {
       dispatch(expActions.addExpense(expArray));
     });
   return (
-    <>
+    <div className={`${classes.body}  ${isDark && classes.dark}`}>
       {!isAuth && <SignUp />}
       {!isAuth && (
         <Route path="/welcome">
@@ -49,7 +51,7 @@ function App() {
       <Route path="/welcome" exact>
         <Welcome />
       </Route>
-    </>
+    </div>
   );
 }
 

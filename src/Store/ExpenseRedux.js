@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialExpState = { expenses: [], isPremium: false };
+const initialExpState = { expenses: [], isPremium: false, totalAmount: 0 };
 
 const expSlice = createSlice({
   name: "expense",
@@ -12,6 +12,7 @@ const expSlice = createSlice({
       state.expenses.forEach(
         (expense) => (totalAmount += Number(expense.amount))
       );
+      state.totalAmount = totalAmount;
       if (totalAmount > 10000) {
         state.isPremium = true;
       }

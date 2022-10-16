@@ -1,8 +1,8 @@
-import { useRef, useState, useContext } from "react";
+import { useRef, useState } from "react";
 import classes from "./SignUp.module.css";
 import { useHistory } from "react-router-dom";
 import { authActions } from "../../Store/AuthRedux";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const SignUp = (props) => {
   const history = useHistory();

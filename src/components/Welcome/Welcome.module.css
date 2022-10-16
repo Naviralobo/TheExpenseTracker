@@ -3,19 +3,29 @@
   justify-content: space-between;
   border-bottom: 1px solid rgb(156, 146, 146);
 }
-
+.welcomeDiv.dark {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(156, 146, 146);
+  background-color: black;
+  color: white;
+}
 .welcomeP2 {
   height: min-content;
   display: flex;
   font-style: italic;
-  background-color: rgb(223, 218, 211);
-  border: 1px solid gray;
+  background-color: transparent;
+  border: 1px solid rgb(9, 8, 8);
   border-radius: 10px;
   font-style: italic;
 }
+.welcomeP2.dark {
+  color: white;
+  border: 1px solid rgb(244, 241, 241);
+}
 
 .updateButton {
-  color: rgb(34, 13, 155);
+  color: rgb(245, 37, 9);
   border: none;
   background-color: transparent;
   font-style: italic;
@@ -34,6 +44,9 @@
 .logout:hover {
   background-color: rgb(151, 125, 176);
 }
+.premiumButtons {
+  justify-content: space-between;
+}
 .premium {
   background-color: rgb(226, 43, 49);
   color: white;
@@ -41,7 +54,24 @@
   border-radius: 10px;
   margin-top: 8px;
   padding: 5px;
+  margin-right: 10px;
 }
 .premium:hover {
-  background-color: rgb(203, 92, 92);
+  background-color: rgb(80, 9, 9);
+}
+/* .toggle {
+  background-color: rgb(6, 6, 6);
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  border-radius: 10px;
+  margin-top: 8px;
+  padding: 5px;
+}
+.toggle:hover {
+  background-color: gray;
+} */
+
+.toggle {
+  display: flex;
+  font-family: cursive;
 }
