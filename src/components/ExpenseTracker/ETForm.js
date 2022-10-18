@@ -4,6 +4,7 @@ import ExpenseList from "./ExpenseList";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { expActions } from "../../Store/ExpenseRedux";
+import ToggleButton from "../../UI/ToggleButton";
 const ETForm = (props) => {
   const amountInputRef = useRef();
   const descriptionInputRef = useRef();
@@ -32,20 +33,15 @@ const ETForm = (props) => {
           expense
         )
         .then((res) => {
-          axios
-            .get(
-              `https://expensetracker-50239-default-rtdb.firebaseio.com/expenses/${userId}.json`
-            )
-            .then((res) => {
-              let datas = res.data;
-              let expArray = [];
-              for (let id in datas) {
-                let expenses = datas[id];
-                expenses.id = id;
-                expArray.push(expenses);
-              }
-              dispatch(expActions.addExpense(expArray));
-            });
+          console.log(res.data.name);
+          dispatch(
+            expActions.addExpenseToList({
+              amount: amount,
+              description: description,
+              category: category,
+              id: res.data.name,
+            })
+          );
         });
     else if (isEditMode)
       axios
@@ -55,20 +51,15 @@ const ETForm = (props) => {
         )
 
         .then((res) => {
-          axios
-            .get(
-              `https://expensetracker-50239-default-rtdb.firebaseio.com/expenses/${userId}.json`
-            )
-            .then((res) => {
-              let datas = res.data;
-              let expArray = [];
-              for (let id in datas) {
-                let expenses = datas[id];
-                expenses.id = id;
-                expArray.push(expenses);
-              }
-              dispatch(expActions.addExpense(expArray));
-            });
+          console.log(res.data);
+          dispatch(
+            expActions.updateExistingExpense({
+              amount: Number(res.data.amount),
+              description: res.data.description,
+              category: res.data.category,
+              id: id,
+            })
+          );
         });
     setIsEditMode(false);
   };
@@ -114,52 +105,60 @@ const ETForm = (props) => {
 
   return (
     <>
-      <div className={classes.div}>
-        <h1 className={classes.h1}>
-          Total Expenses : <span> Rs.{totalAmount}</span>
-        </h1>
+      <div className={classes.mainDiv}>
+        <div className={classes.div}>
+          <h1 className={classes.h1}>
+            Your Expense{" "}
+            <div className={classes.totalAmount}> Rs.{totalAmount}</div>
+          </h1>
 
-        <form onSubmit={submitHandler}>
-          <div className={classes.form}>
-            <div className={classes.money}>
-              <div>
-                <label htmlFor="money">Amount</label>
+          <form onSubmit={submitHandler}>
+            <div className={classes.form}>
+              <div className={classes.description}>
+                <div>
+                  <label htmlFor="money">Amount</label>
+                </div>
+                <input type="text" id="money" ref={amountInputRef} />
               </div>
-              <input type="text" id="money" ref={amountInputRef} />
-            </div>
-            <div className={classes.description}>
-              <div>
-                <label htmlFor="description">Description</label>
+              <div className={classes.description}>
+                <div>
+                  <label htmlFor="description">Description</label>
+                </div>
+                <input type="text" id="decsription" ref={descriptionInputRef} />
               </div>
-              <input type="text" id="decsription" ref={descriptionInputRef} />
-            </div>
-            <div className={classes.category}>
-              <div>
-                <label htmlFor="category">Category</label>
+              <div className={classes.description}>
+                <div>
+                  <label htmlFor="category">Category</label>
+                </div>
+                <select id="category" ref={categoryInputRef}>
+                  <option value="food">food</option>
+                  <option value="petrol">petrol</option>
+                  <option value="salary">salary</option>
+                  <option value="home appliance">home appliance</option>
+                  <option value="education">education</option>
+                  <option value="food">movies</option>
+                  <option value="food">others....</option>
+                </select>
               </div>
-              <select id="category" ref={categoryInputRef}>
-                <option value="food">food</option>
-                <option value="petrol">petrol</option>
-                <option value="salary">salary</option>
-                <option value="home appliance">home appliance</option>
-                <option value="education">education</option>
-                <option value="food">movies</option>
-                <option value="food">others....</option>
-              </select>
             </div>
-          </div>
 
-          <div>
-            <button className={classes.actions} type="submit">
-              {isEditMode ? "Update" : "Add Expense"}
-            </button>
+            <div>
+              <button className={classes.actions} type="submit">
+                {isEditMode ? "Update" : "Add Expense"}
+              </button>
+            </div>
+          </form>
+          <div className={classes.toggleButton}>
+            <ToggleButton />
           </div>
-        </form>
+        </div>
+        <div className={`${classes.listAndButton} ${isDark && classes.dark}`}>
+          <ul>{expensee}</ul>
+          <button className={classes.download} onClick={downloadHandler}>
+            Download File
+          </button>
+        </div>
       </div>
-      <ul>{expensee}</ul>
-      <button className={classes.download} onClick={downloadHandler}>
-        Download File
-      </button>
     </>
   );
 };

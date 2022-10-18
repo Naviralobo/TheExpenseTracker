@@ -2,12 +2,18 @@
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid rgb(156, 146, 146);
+  background-color: #12adea;
+  padding-left: 10%;
+  padding-right: 10%;
+  /* background-image: url(/public/images/bg.jpg); */
+  /* background-size: cover; */
 }
 .welcomeDiv.dark {
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid rgb(156, 146, 146);
-  background-color: black;
+  /* background-color: black; */
+  background: url(/public/images/bgDark.jpg);
   color: white;
 }
 .welcomeP2 {
@@ -34,15 +40,24 @@
   color: blueviolet;
 }
 .logout {
-  background-color: blueviolet;
-  color: white;
-  font-weight: bold;
+  border: 1px solid blue;
+  background-color: transparent;
+  color: rgb(8, 42, 120);
+  font-weight: 600;
+  font-size: 3mm;
   border-radius: 10px;
   margin-top: 8px;
   padding: 5px;
 }
+.logout.dark {
+  color: white;
+  border: 1px solid rgb(246, 246, 249);
+}
 .logout:hover {
-  background-color: rgb(151, 125, 176);
+  border: 1px solid rgb(4, 4, 4);
+}
+.logout.dark:hover {
+  border: 1px solid rgb(5, 130, 144);
 }
 .premiumButtons {
   justify-content: space-between;

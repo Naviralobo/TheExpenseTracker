@@ -11,20 +11,7 @@ const ExpenseList = (props) => {
         ` https://expensetracker-50239-default-rtdb.firebaseio.com/expenses/${userId}/${props.id}.json`
       )
       .then((res) => {
-        axios
-          .get(
-            `https://expensetracker-50239-default-rtdb.firebaseio.com/expenses/${userId}.json`
-          )
-          .then((res) => {
-            let datas = res.data;
-            let expArray = [];
-            for (let id in datas) {
-              let expenses = datas[id];
-              expenses.id = id;
-              expArray.push(expenses);
-            }
-            dispatch(expActions.addExpense(expArray));
-          });
+        dispatch(expActions.deleteExpenseFromList(props.id));
       });
   };
   return (
@@ -39,7 +26,7 @@ const ExpenseList = (props) => {
               Edit
             </button>
             <button className={classes.delete} onClick={deleteExpenseHandler}>
-              Delete
+              X
             </button>
           </td>
         </tr>

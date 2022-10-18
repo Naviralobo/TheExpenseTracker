@@ -84,53 +84,59 @@ const SignUp = (props) => {
 
   return (
     <div className={classes.div}>
-      <section className={classes.auth}>
-        <h1>{isLogin ? "Login" : "Signup"}</h1>
-        <form onSubmit={submitHandler}>
-          <div className={classes.control}>
-            <label htmlFor="email">Your Email</label>
-            <input type="text" id="email" required ref={emailInputRef} />
-          </div>
-          <div className={classes.control}>
-            <label htmlFor="password">Your Password</label>
-            <input
-              type="password"
-              id="password"
-              required
-              ref={passwordInputRef}
-            />
-          </div>
-          {!isLogin && (
+      <div className={classes.div1}>
+        <h1>The Expense Tracker App</h1>
+        <p>-be the controller of your finances</p>
+      </div>
+      <div className={classes.div2}>
+        <section className={classes.auth}>
+          <h1>{isLogin ? "Login" : "Signup"}</h1>
+          <form onSubmit={submitHandler}>
             <div className={classes.control}>
-              <label htmlFor="confirmPassword">Confirm Password</label>
+              <label htmlFor="email">Your Email</label>
+              <input type="text" id="email" required ref={emailInputRef} />
+            </div>
+            <div className={classes.control}>
+              <label htmlFor="password">Your Password</label>
               <input
                 type="password"
-                id="confirmPassword"
+                id="password"
                 required
-                ref={confirmPasswordInputRef}
+                ref={passwordInputRef}
               />
             </div>
-          )}
-          <button
-            type="button"
-            className={classes.forgotPassword}
-            onClick={forgotPasswordHandler}
-          >
-            forgot password?
-          </button>
-          <div className={classes.actions}>
-            <button type="submit">{isLogin ? "Login" : "Signup"}</button>
-          </div>
-        </form>
-      </section>
+            {!isLogin && (
+              <div className={classes.control}>
+                <label htmlFor="confirmPassword">Confirm Password</label>
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  required
+                  ref={confirmPasswordInputRef}
+                />
+              </div>
+            )}
+            <button
+              type="button"
+              className={classes.forgotPassword}
+              onClick={forgotPasswordHandler}
+            >
+              forgot password?
+            </button>
+            <div className={classes.actions}>
+              <button type="submit">{isLogin ? "Login" : "Signup"}</button>
+            </div>
+          </form>
+        </section>
 
-      <button
-        type="button"
-        className={classes.toggle}
-        onClick={switchAuthModeHandler}
-      >
-        {isLogin ? "Dont have an account? Signup" : "Have an Account?Login"}
-      </button>
+        <button
+          type="button"
+          className={classes.toggle}
+          onClick={switchAuthModeHandler}
+        >
+          {isLogin ? "Dont have an account? Signup" : "Have an Account?Login"}
+        </button>
+      </div>
     </div>
   );
 };

@@ -2,11 +2,11 @@ import classes from "./Welcome.module.css";
 import InputForm from "./InputForm";
 import ETForm from "../ExpenseTracker/ETForm";
 import { authActions } from "../../Store/AuthRedux";
+
 // import { themeActions } from "../../Store/ThemeRedux";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import ToggleButton from "../../UI/ToggleButton";
 
 import { useState } from "react";
 
@@ -27,6 +27,9 @@ const Welcome = () => {
 
   const navigationHandler = () => {
     setIsNavigated(true);
+  };
+  const profileClickHandler = () => {
+    setIsNavigated(false);
   };
 
   const profileUpdateHandler = () => {
@@ -94,35 +97,44 @@ const Welcome = () => {
     history.replace("/");
   };
   return (
-    <>
+    <div className={classes.full}>
       <div className={`${classes.welcomeDiv} ${isDark && classes.dark}`}>
-        <p> Welcome to ExpenseTracker Page!!</p>
+        {!isNavigated && <h3> Welcome to ExpenseTracker Page!!</h3>}
 
-        <p className={`${classes.welcomeP2}  ${isDark && classes.dark}`}>
-          Your profile is incomplete.
-          <button
-            className={classes.updateButton}
-            onClick={profileUpdateHandler}
-          >
-            Complete now
-          </button>
-        </p>
+        {!isNavigated && (
+          <p className={`${classes.welcomeP2}  ${isDark && classes.dark}`}>
+            Your profile is incomplete.
+            <button
+              className={classes.updateButton}
+              onClick={profileUpdateHandler}
+            >
+              Complete now
+            </button>
+          </p>
+        )}
+
+        {isNavigated && (
+          <div>
+            <button
+              className={`${classes.logout}  ${isDark && classes.dark}`}
+              onClick={profileClickHandler}
+            >
+              PROFILE
+            </button>
+          </div>
+        )}
         {isPremium && (
           <div className={classes.premiumButtons}>
             <button className={classes.premium}>Activate Premium</button>
           </div>
         )}
 
-        <div className={classes.toggle}>
-          <div>Switch Mode</div>
-          <div>
-            <ToggleButton />
-          </div>
-        </div>
-
         <div>
-          <button className={classes.logout} onClick={logoutHandler}>
-            Logout
+          <button
+            className={`${classes.logout}  ${isDark && classes.dark}`}
+            onClick={logoutHandler}
+          >
+            LOGOUT
           </button>
         </div>
       </div>
@@ -130,7 +142,7 @@ const Welcome = () => {
         <InputForm data={collectedData} navigation={navigationHandler} />
       )}
       {isNavigated && <ETForm />}
-    </>
+    </div>
   );
 };
 export default Welcome;

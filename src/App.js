@@ -31,7 +31,7 @@ function App() {
       dispatch(expActions.addExpense(expArray));
     });
   return (
-    <div className={`${classes.body}  ${isDark && classes.dark}`}>
+    <div className={`$ ${isDark && classes.dark}`}>
       {!isAuth && <SignUp />}
       {!isAuth && (
         <Route path="/welcome">
