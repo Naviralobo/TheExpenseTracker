@@ -42,7 +42,8 @@ const ETForm = (props) => {
               id: res.data.name,
             })
           );
-        });
+        })
+        .catch((err) => alert(err));
     else if (isEditMode)
       axios
         .put(
@@ -60,7 +61,8 @@ const ETForm = (props) => {
               id: id,
             })
           );
-        });
+        })
+        .catch((err) => alert(err));
     setIsEditMode(false);
   };
   const editHandler = (expElement) => {

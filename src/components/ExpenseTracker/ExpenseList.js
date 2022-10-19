@@ -12,7 +12,8 @@ const ExpenseList = (props) => {
       )
       .then((res) => {
         dispatch(expActions.deleteExpenseFromList(props.id));
-      });
+      })
+      .catch((err) => alert(err));
   };
   return (
     <div className={classes.list}>
