@@ -2,7 +2,7 @@ import classes from "./InputForm.module.css";
 
 const InputForm = (props) => {
   return (
-    <div>
+    <div className={classes.inputForm}>
       <form className={classes.div}>
         {/* <img src={props.data.image} alt="userImage" /> */}
         <label htmlFor="userName">Name</label>
